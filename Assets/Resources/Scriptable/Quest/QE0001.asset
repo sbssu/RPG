@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a3131fc5e425a843a79501e8dd9e882, type: 3}
+  m_Name: QE0001
+  m_EditorClassIdentifier: 
+  questName: "\uCD08\uBCF4\uC790 \uAC00\uC774\uB4DC"
+  requstID: NP0001
+  questDialogue:
+  - "\uC548\uB155\uD558\uC138\uC694 \uBAA8\uD5D8\uAC00\uB2D8"
+  - "\uCCAB\uBC88\uC9F8 \uD018\uC2A4\uD2B8\uC785\uB2C8\uB2E4."
+  - "\uC624\uB978\uCABD\uC5D0 \uC788\uB294 Npc\uB97C \uB20C\uB7EC\uBCF4\uC138\uC694."
+  progressDialogue:
+  - "\uC548 \uAC00\uACE0 \uBB50 \uD558\uC138\uC694?"
+  requires:
+  - description: "Npc\uC5D0\uAC8C \uB9D0 \uAC78"
+    id: 
+    current: 0
+    max: 0
+  guestID: NP0002
+  notMeetDialogue: []
+  completeDialogue:
+  - "\uC800\uB294 \uD6C8\uB828\uC6A9 NPC\uC785\uB2C8\uB2E4."
+  - "\uB300\uD654\uB294 \uC774\uB807\uAC8C \uD569\uB2C8\uB2E4."
+  condition: 0
+  reward:
+    gold: 500
+    items:
+    - {fileID: 11400000, guid: 91965c7b4c130864fbec5cfed2e9e1ef, type: 2}
+  nextQuests:
+  - {fileID: 11400000, guid: 0e854e0a579adaa4f80324ea723e28f0, type: 2}
