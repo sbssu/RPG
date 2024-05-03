@@ -8,6 +8,11 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
+    public class PlayerSaveData
+    {
+        public Vector3 position;
+    }
+
     public int hp;
     public float moveSpeed;
     public float rotateSpeed;
@@ -30,6 +35,8 @@ public class Player : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         mainCam = Camera.main;
+
+        LoadData();
     }
 
     void Update()
@@ -110,7 +117,11 @@ public class Player : MonoBehaviour
         {
             InterectUI.Instance.Show(target, target.InterectPivot ?? interctPivot);
             if (Input.GetKeyDown(KeyCode.G))
-                target.OnInterect(gameObject);
+            {
+                target.OnInterect(gameObject, () => {
+                    QuestManager.Instance.CheckAction(target.InterectID);
+                });
+            }
         }
     }
     void HoverObject()
@@ -164,5 +175,22 @@ public class Player : MonoBehaviour
         talkCamera.SetActive(isOn);
         if (isOn)
             Fader.Instance.FadeIn();
+    }
+
+    private void LoadData()
+    {
+        string json = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
+        if (string.IsNullOrEmpty(json))
+            return;
+
+        PlayerSaveData data = JsonUtility.FromJson<PlayerSaveData>(json);
+        transform.position = data.position;
+    }
+        
+    public void OnApplicationQuit()
+    {
+        PlayerSaveData saveData = new PlayerSaveData();
+        saveData.position = transform.position;
+        PlayerPrefs.SetString("PLAYER_DATA", JsonUtility.ToJson(saveData));
     }
 }

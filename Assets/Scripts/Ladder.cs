@@ -17,14 +17,15 @@ public class Ladder : MonoBehaviour, IInteract
     public string InterctText => interctText;
     public bool CanInterect => !isLadder;
     public Transform InterectPivot => null;
+    public string InterectID => "Climbing";
 
-    public void OnInterect(GameObject owner)
+    public void OnInterect(GameObject owner, System.Action callback)
     {
         Debug.Log("캐릭터를 움직인다.");
         Player player = owner.GetComponent<Player>();
-        StartCoroutine(IELadder(player));
+        StartCoroutine(IELadder(player, callback));
     }
-    private IEnumerator IELadder(Player player)
+    private IEnumerator IELadder(Player player, System.Action callback)
     {
         isLadder = true;
         player.LockControl(true);
@@ -38,6 +39,9 @@ public class Ladder : MonoBehaviour, IInteract
         player.LockControl(false);
         player.LockNavmesh(false);
         isLadder = false;
+
+        callback?.Invoke();
+        callback = null;
     }
 
     private IEnumerator IEMovement(Transform target, Transform destination, float speed)

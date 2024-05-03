@@ -12,15 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3131fc5e425a843a79501e8dd9e882, type: 3}
   m_Name: QE0002
   m_EditorClassIdentifier: 
-  questName: "\uD14C\uC2A4\uD2B8\uC6A9\uC785\uB2C8\uB2E4."
-  requstID: "\uC548\uB155\uD558\uC138\uC694?"
-  questDialogue: []
-  progressDialogue: []
-  requires: []
-  guestID: 
+  questID: QE0002
+  questName: "\uC0C1\uD638\uC791\uC6A9\uD558\uAE30"
+  requstID: NP0001
+  questDialogue:
+  - "G\uD0A4\uB97C \uB20C\uB7EC \uBB3C\uCCB4\uC640 \uC0C1\uD638\uC791\uC6A9 \uD560
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  - "\uC67C\uCABD\uC5D0 \uBCF4\uC774\uB294 \uBB38\uC744 \uC5F4\uACE0 \uC808\uBCBD\uC744
+    \uC62C\uB77C\uAC00\uC8FC\uC138\uC694."
+  progressDialogue:
+  - "\uBB3C\uCCB4 \uAC00\uAE4C\uC774\uAC00\uC11C G\uD0A4\uB97C \uB204\uB974\uBA74
+    \uB429\uB2C8\uB2E4."
+  requires:
+  - description: "\uC7A0\uAE34 \uBB38 \uC5F4\uAE30"
+    id: OpenDoor
+    current: 0
+    max: 1
+  - description: "\uC808\uBCBD \uC624\uB974\uAE30"
+    id: Climbing
+    current: 0
+    max: 1
+  - description: "\uC808\uBCBD \uC704 NPC\uC5D0\uAC8C \uB9D0 \uAC78\uAE30"
+    id: NP0003
+    current: 0
+    max: 0
+  guestID: NP0003
   notMeetDialogue: []
-  completeDialogue: []
-  condition: 0
+  completeDialogue:
+  - "\uC808\uBCBD\uC744 \uC624\uB974\uB294 \uBC29\uBC95\uC785\uB2C8\uB2E4"
+  - "\uAC04\uB2E8\uD558\uC8E0?"
+  progress: 1
   reward:
     gold: 0
     items: []

@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Player;
 
 public class AnimInterect : MonoBehaviour, IInteract
 {
-    [SerializeField] Sprite iconSprite;
+    public class SaveData
+    {
+        public bool isOpen;
+    }
+
+    [SerializeField] string interectID;
     [SerializeField] string interectText;
+    [SerializeField] Sprite iconSprite;
     [SerializeField] Animator anim;
     [SerializeField] Transform interectPivot;
 
@@ -15,15 +22,21 @@ public class AnimInterect : MonoBehaviour, IInteract
     public virtual string InterctText => interectText;
     public bool CanInterect => !isOpen;
     public Transform InterectPivot => interectPivot;
+    public string InterectID => interectID;
 
-    public void OnInterect(GameObject owner)
+    void Start()
+    {
+        LoadData();
+    }
+
+    public void OnInterect(GameObject owner, System.Action callback)
     {
         isOpen = true;
         Player player = owner.GetComponent<Player>();
 
-        StartCoroutine(IEOpenDoor(player));
+        StartCoroutine(IEOpenDoor(player, callback));
     }
-    private IEnumerator IEOpenDoor(Player player)
+    private IEnumerator IEOpenDoor(Player player, System.Action callback)
     {
         player.LockControl(true);
 
@@ -37,5 +50,26 @@ public class AnimInterect : MonoBehaviour, IInteract
 
         player.LockControl(false);
         anim.SetTrigger("onOpen");
+
+        callback?.Invoke();
+        callback = null;
+    }
+
+    private void LoadData()
+    {
+        string json = PlayerPrefs.GetString("DOOR_DATA", string.Empty);
+        if (string.IsNullOrEmpty(json))
+            return;
+
+        SaveData data = JsonUtility.FromJson<SaveData>(json);
+        isOpen = data.isOpen;
+        if (isOpen)
+            anim.SetTrigger("onOpen");
+    }
+    public void OnApplicationQuit()
+    {
+        SaveData saveData = new SaveData();
+        saveData.isOpen = isOpen;
+        PlayerPrefs.SetString("DOOR_DATA", JsonUtility.ToJson(saveData));
     }
 }

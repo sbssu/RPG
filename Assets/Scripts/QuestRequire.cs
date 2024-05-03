@@ -15,12 +15,16 @@ public class QuestRequire
     public bool isComplete => current >= max;
 
     // 개수가 필용하면 {c}라고 붙인다.
-    public bool Action(string id, int count)
+    public bool Action(string id, int forceCount = -1)
     {
         if (this.id != id)
             return false;
 
-        current = count;
+        if (forceCount >= 0)
+            current = forceCount;
+        else
+            current = current + 1;
+
         return current >= max;
     }
     public override string ToString()
